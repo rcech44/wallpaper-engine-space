@@ -1,0 +1,535 @@
+header.masthead {
+    position: relative;
+    overflow: hidden;
+    padding-top: calc(7rem + 72px);
+    padding-bottom: 7rem;
+    background: #000000a9;
+    /* background: radial-gradient(at center, #7434BD, #010101); */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    background-size: cover;
+    animation: background-opacity 13s infinite normal;
+}
+
+header.masthead .masthead-content {
+    padding-top: 3vh;
+    padding-bottom: 5vh;
+    z-index: 1;
+    position: relative;
+    opacity: 100%;
+}
+
+header.masthead .masthead-content .masthead-heading {
+    font-size: 4rem;
+}
+
+header.masthead .masthead-content .masthead-subheading {
+    font-size: 2rem;
+}
+
+header.masthead .masthead-content .masthead-subsubheading {
+    font-weight: lighter;
+    font-size: 1.5rem;
+    letter-spacing: 0.15rem;
+}
+
+@keyframes background-opacity {
+    0% {
+        background-color: #00000000;
+    }
+
+    50% {
+        background-color: #00000086;
+    }
+
+    100% {
+        background-color: #00000000;
+    }
+}
+
+@keyframes star-opacity-animation {
+    0% {
+        opacity: 0%;
+    }
+
+    50% {
+        opacity: 80%;
+    }
+
+    100% {
+        opacity: 0%;
+    }
+}
+
+@media (min-width: 992px) {
+    header.masthead {
+        padding-top: calc(10rem + 55px);
+        padding-bottom: 10rem;
+    }
+
+    header.masthead .masthead-content .masthead-heading {
+        text-shadow: 1px 1px 50px rgba(0, 0, 0, 0.5);
+        font-size: 5rem;
+    }
+
+    header.masthead .masthead-content .masthead-subheading {
+        text-shadow: 1px 1px 50px rgba(0, 0, 0, 0.5);
+        font-size: 3rem;
+    }
+}
+
+.btn-primary {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #cccccc;
+    --bs-btn-border-color: #b2b2b2;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #808080;
+    --bs-btn-hover-border-color: #808080;
+    --bs-btn-focus-shadow-rgb: 241, 46, 141;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #808080;
+    --bs-btn-active-border-color: #808080;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #b2b2b2;
+    --bs-btn-disabled-border-color: #b2b2b2;
+}
+
+.navbar-custom {
+    background-color: rgba(0, 0, 0, 0);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    animation: navbar-animation 60s linear infinite both;
+}
+
+
+header.masthead .bg-star {
+    z-index: 0;
+    position: absolute;
+    font-size: 3rem;
+    transition: 0.3s;
+}
+
+header.masthead .bg-star-1 {
+    height: 5vw;
+    width: 5vw;
+    top: 21vh;
+    left: 10vw;
+    /* background: #6786a3; */
+    animation: star-opacity-animation 10s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-2 {
+    height: 3vw;
+    width: 3vw;
+    top: 9vh;
+    left: 19vw;
+    /* background: #1f5f9c; */
+    animation: star-opacity-animation 17s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-3 {
+    height: 6vw;
+    width: 6vw;
+    top: 37vh;
+    left: 33vw;
+    /* background: #3e7fbd; */
+    animation: star-opacity-animation 14s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-4 {
+    height: 8vw;
+    width: 8vw;
+    top: 47vh;
+    left: 77vw;
+    /* background: #719dc7; */
+    animation: star-opacity-animation 23s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-5 {
+    height: 2vw;
+    width: 2vw;
+    top: 69vh;
+    left: 69vw;
+    /* background: #3387d6; */
+    animation: star-opacity-animation 13s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-6 {
+    height: 4vw;
+    width: 4vw;
+    top: 81vh;
+    left: 80vw;
+    /* background: #3f6991; */
+    animation: star-opacity-animation 10s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-7 {
+    height: 4vw;
+    width: 4vw;
+    top: 23vh;
+    left: 75vw;
+    /* background: #3f6991; */
+    animation: star-opacity-animation 12s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-8 {
+    height: 4vw;
+    width: 4vw;
+    top: 5vh;
+    left: 91vw;
+    /* background: #3f6991; */
+    animation: star-opacity-animation 18s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-9 {
+    height: 4vw;
+    width: 4vw;
+    top: 74vh;
+    left: 28vw;
+    /* background: #3f6991; */
+    animation: star-opacity-animation 6s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-10 {
+    height: 4vw;
+    width: 4vw;
+    top: 90vh;
+    left: 5vw;
+    /* background: #3f6991; */
+    animation: star-opacity-animation 24s ease-in-out infinite both;
+}
+
+header.masthead .bg-star-11 {
+    height: 4vw;
+    width: 4vw;
+    top: 65vh;
+    left: 14vw;
+    /* background: #3f6991; */
+    animation: star-opacity-animation 29s ease-in-out infinite both;
+}
+
+header.masthead .bg-falling-star {
+    z-index: 0;
+    position: absolute;
+    /* -webkit-mask-image: -webkit-gradient(linear, left top, right top, color-stop(30%, rgba(247, 170, 69, 0)), color-stop(100%, rgba(247, 170, 69, 1))); */
+    /* mask-size: 100%; */
+    background: linear-gradient(90deg, #916b0300 0%, #f7aa45 80%);
+    filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.6));
+    /* box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5); */
+    transition: 3s;
+    opacity: 70%;
+}
+
+header.masthead .bg-falling-star-1 {
+    height: 0.8vh;
+    width: 15vw;
+    top: -20vh;
+    right: -20vw;
+    rotate: 135deg;
+    border-radius: 5% / 50%;
+    background: linear-gradient(90deg, #ffffff00 10%, #ffffff 80%);
+    animation: falling-star-animation-1 25s linear infinite both;
+}
+
+header.masthead .bg-falling-star-2 {
+    height: 0.5vh;
+    width: 10vw;
+    top: 20vh;
+    right: 40vw;
+    rotate: 135deg;
+    border-radius: 5% / 50%;
+    background: linear-gradient(90deg, #ffffff00 10%, #ffffff 80%);
+    animation: falling-star-animation-2 35s linear infinite both;
+    animation-delay: 1s;
+}
+
+header.masthead .bg-falling-star-3 {
+    height: 1vh;
+    width: 17vw;
+    top: 60vh;
+    right: 30vw;
+    rotate: 135deg;
+    border-radius: 5% / 50%;
+    background: linear-gradient(90deg, #ffffff00 30%, #ffffff 100%);
+    animation: falling-star-animation-3 25s linear infinite both;
+    animation-delay: 3s;
+}
+
+header.masthead .bg-falling-star-4 {
+    height: 1vh;
+    width: 40vw;
+    top: -40vh;
+    left: 35vw;
+    rotate: 135deg;
+    border-radius: 3% / 50%;
+    background: linear-gradient(90deg, #ffffff00 30%, #ffffff 100%);
+    animation: falling-star-animation-4 20s linear infinite both;
+    animation-delay: 1s;
+}
+
+header.masthead .bg-falling-star-5 {
+    height: 0.7vh;
+    width: 20vw;
+    top: 50vh;
+    right: -15vw;
+    rotate: 135deg;
+    border-radius: 5% / 50%;
+    background: linear-gradient(90deg, #ffffff00 30%, #ffffff 100%);
+    animation: falling-star-animation-5 10s linear infinite both;
+    animation-delay: 0s;
+}
+
+header.masthead .bg-falling-star-6 {
+    height: 0.6vh;
+    width: 30vw;
+    top: -20vh;
+    right: 20vw;
+    rotate: 135deg;
+    border-radius: 5% / 50%;
+    background: linear-gradient(90deg, #ffffff00 30%, #ffffff 100%);
+    animation: falling-star-animation-6 15s linear infinite both;
+    animation-delay: 0s;
+}
+
+@keyframes falling-star-animation-1 {
+    0% {
+        -webkit-transform: translateX(0) translateY(0) rotate(135deg);
+        transform: translateX(0) translateY(0) rotate(135deg);
+        opacity: 0%;
+    }
+
+    10% {
+        -webkit-transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    90% {
+        -webkit-transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    100% {
+        -webkit-transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        opacity: 0%;
+    }
+}
+
+@keyframes falling-star-animation-2 {
+    0% {
+        -webkit-transform: translateX(0) translateY(0) rotate(135deg);
+        transform: translateX(0) translateY(0) rotate(135deg);
+        opacity: 0%;
+    }
+
+    10% {
+        -webkit-transform: translateX(-8vw) translateY(8vw) rotate(135deg);
+        transform: translateX(-8vw) translateY(8vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    90% {
+        -webkit-transform: translateX(-72vw) translateY(72vw) rotate(135deg);
+        transform: translateX(-72vw) translateY(72vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    100% {
+        -webkit-transform: translateX(-80vw) translateY(80vw) rotate(135deg);
+        transform: translateX(-80vw) translateY(80vw) rotate(135deg);
+        opacity: 0%;
+    }
+}
+
+@keyframes falling-star-animation-3 {
+    0% {
+        -webkit-transform: translateX(0) translateY(0) rotate(135deg);
+        transform: translateX(0) translateY(0) rotate(135deg);
+        opacity: 0%;
+    }
+
+    10% {
+        -webkit-transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    90% {
+        -webkit-transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    100% {
+        -webkit-transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        opacity: 0%;
+    }
+}
+
+@keyframes falling-star-animation-4 {
+    0% {
+        -webkit-transform: translateX(0) translateY(0) rotate(135deg);
+        transform: translateX(0) translateY(0) rotate(135deg);
+        opacity: 0%;
+    }
+
+    10% {
+        -webkit-transform: translateX(-7vw) translateY(7vw) rotate(135deg);
+        transform: translateX(-7vw) translateY(7vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    90% {
+        -webkit-transform: translateX(-63vw) translateY(63vw) rotate(135deg);
+        transform: translateX(-63vw) translateY(63vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    100% {
+        -webkit-transform: translateX(-70vw) translateY(70vw) rotate(135deg);
+        transform: translateX(-70vw) translateY(70vw) rotate(135deg);
+        opacity: 0%;
+    }
+}
+
+@keyframes falling-star-animation-5 {
+    0% {
+        -webkit-transform: translateX(0) translateY(0) rotate(135deg);
+        transform: translateX(0) translateY(0) rotate(135deg);
+        opacity: 0%;
+    }
+
+    10% {
+        -webkit-transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    90% {
+        -webkit-transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    100% {
+        -webkit-transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        opacity: 0%;
+    }
+}
+
+@keyframes falling-star-animation-6 {
+    0% {
+        -webkit-transform: translateX(0) translateY(0) rotate(135deg);
+        transform: translateX(0) translateY(0) rotate(135deg);
+        opacity: 0%;
+    }
+
+    10% {
+        -webkit-transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        transform: translateX(-6vw) translateY(6vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    90% {
+        -webkit-transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        transform: translateX(-54vw) translateY(54vw) rotate(135deg);
+        opacity: 70%;
+    }
+
+    100% {
+        -webkit-transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        transform: translateX(-60vw) translateY(60vw) rotate(135deg);
+        opacity: 0%;
+    }
+}
+
+header.masthead .bg-planet {
+
+    position: absolute;
+    /* border-radius: 50%; */
+    filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.6));
+    /* box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5); */
+    transition: 0.3s;
+    opacity: 100%;
+}
+
+header.masthead .bg-planet-1 {
+    width: 30vh;
+    height: 30vh;
+    max-width: 1500px;
+    max-height: 1500px;
+    bottom: -15vh;
+    right: -15vh;
+    background-image: url(earth.png);
+    background-size: cover;
+    animation: planet-animation-1 30s linear infinite both;
+}
+
+header.masthead .bg-planet-2 {
+    width: 3vh;
+    height: 3vh;
+    max-width: 1500px;
+    max-height: 1500px;
+    bottom: -2.5vh;
+    right: -2.5vh;
+    background-image: url(moon.png);
+    background-size: cover;
+    animation: planet-animation-2 20s linear(0, 0.30 90%, 0.95 10%, 1) infinite;
+}
+
+header.masthead .bg-planet-3 {
+    width: 4vh;
+    height: 4vh;
+    max-width: 1500px;
+    max-height: 1500px;
+    bottom: -4vh;
+    right: -2.5vh;
+    filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.295));
+    background-image: url(astronaut.png);
+    background-size: cover;
+    animation: planet-animation-3 50s linear(0, 0.30 90%, 0.95 10%, 1) infinite;
+    animation-delay: 2s;
+}
+
+@keyframes planet-animation-1 {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes planet-animation-2 {
+    from {
+        -webkit-transform: rotate(0deg) translateX(-40vh) rotate(0deg) rotate(0deg);
+        transform: rotate(0deg) translateX(-40vh) rotate(0deg) rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg) translateX(-40vh) rotate(-360deg) rotate(720deg);
+        transform: rotate(360deg) translateX(-40vh) rotate(-360deg) rotate(720deg);
+    }
+}
+
+@keyframes planet-animation-3 {
+    from {
+        -webkit-transform: rotate(0deg) translateX(-30vh) rotate(0deg) rotate(0deg);
+        transform: rotate(0deg) translateX(-30vh) rotate(0deg) rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg) translateX(-30vh) rotate(-360deg) rotate(10000deg);
+        transform: rotate(360deg) translateX(-30vh) rotate(-360deg) rotate(10000deg);
+    }
+}
