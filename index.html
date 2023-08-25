@@ -1,90 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Úvod | Radomír Čech</title>
-        <!-- <link rel="icon" type="image/x-icon" href="assets/favicon_index.ico" /> -->
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans:ital,wght@0,400;0,500;1,300&family=Poppins&display=swap" rel="stylesheet">
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="bootstrap.css" rel="stylesheet" />
-        <link href="index.css" rel="stylesheet" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-color/2.1.2/jquery.color.min.js"></script>
-    </head>
-    <body id="page-top" style="background: radial-gradient(at right bottom, rgba(0,54,181,1) 10%, rgba(0,0,0,1) 100%);"> 
-        <div id="page_transition_div" class="page-transition-div" style="display:block;"></div>
-        <!-- Navigation-->
-        <!-- Header-->
-        <header class="masthead text-center text-white" style="height: 100vh">
-            <div id="header_text" class="masthead-content" style="height:100%;z-index: 1030;display: none;">
-            </div>
-            <div id="background_elements">
-                <div class="bg-star-1 bg-star">*</div>
-                <div class="bg-star-2 bg-star">*</div>
-                <div class="bg-star-3 bg-star">*</div>
-                <div class="bg-star-4 bg-star">*</div>
-                <div class="bg-star-5 bg-star">*</div>
-                <div class="bg-star-6 bg-star">*</div>
-                <div class="bg-star-7 bg-star">*</div>
-                <div class="bg-star-8 bg-star">*</div>
-                <div class="bg-star-9 bg-star">*</div>
-                <div class="bg-star-10 bg-star">*</div>
-                <div class="bg-star-11 bg-star">*</div>
-                <div class="bg-falling-star-1 bg-falling-star"></div>
-                <div class="bg-falling-star-2 bg-falling-star"></div>      
-                <div class="bg-falling-star-3 bg-falling-star"></div>      
-                <div class="bg-falling-star-4 bg-falling-star"></div>      
-                <div class="bg-falling-star-5 bg-falling-star"></div>      
-                <div class="bg-falling-star-6 bg-falling-star"></div>      
-                <div id="main_planet" class="bg-planet-1 bg-planet"></div>      
-                <div id="moon_planet" class="bg-planet-2 bg-planet"></div>     
-                <div id="moon_planet_2" class="bg-planet-3 bg-planet" style="display:block;"></div>     
-            </div>
-            <a id="randomize_button" class="btn btn-s rounded-pill" onclick="randomizeIndex()" style="position:absolute;z-index: 1;background-color: rgba(0, 0, 0, 0.226); color: #adadad; font-family: 'Open Sans', sans-serif;bottom: 2rem !important;left: 2rem !important;">změnit pozadí (právě Země)</a>
-        </header>
-        <!-- Core theme JS-->
-        <script src="scripts.js"></script>
-        <script>
-            randomizeIndexStartup();
-            $("#page_transition_div").fadeOut("slow");
-            $("#header_text").fadeIn("slow");
-            TOUCH_TIMEOUT_MILLISECONDS = 1000;
-            touch_count = 0;
-            window.onload = function () {
-                document.getElementById("main_planet").addEventListener('touchend', function (evt) {
-                    touch_count += 1;
-                    setTimeout(function () {
-                        touch_count = 0
-                    }, TOUCH_TIMEOUT_MILLISECONDS);
 
-                    if (touch_count === 4) {
-                        easterEgg();
-                    }
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!-- Google fonts-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans:ital,wght@0,400;0,500;1,300&family=Poppins&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
 
-                    evt.preventDefault();
-                });
-            };
-            document.getElementById("main_planet").addEventListener('click', function (evt) {
-                if (evt.detail === 4) {
-                    easterEgg();
-                }
-            });
-        </script>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- <script>
-            const colors = ["7434BD", "1a5214", "14177a", "5f6614"];
-            document.getElementById("page-top").style.background = "radial-gradient(at center bottom, #" + colors[Math.floor(Math.random() * colors.length)]+ " 10%, #010101 90%)";
-        </script> -->
-    </body>
+<body id="page-top" style="background: radial-gradient(at right bottom, rgba(0,54,181,1) 10%, rgba(0,0,0,1) 100%);">
+    <div id="page_transition_div" class="page-transition-div" style="display:block;"></div>
+    <header class="masthead text-center text-white" style="height: 100vh">
+        <div id="background_elements">
+            <div id="background_stars">
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+                <div class="bg-star">•</div>
+            </div>
+            <div id="background_falling_stars">
+                <div class="bg-falling-star"></div>
+                <div class="bg-falling-star"></div>
+                <div class="bg-falling-star"></div>
+                <div class="bg-falling-star"></div>
+                <div class="bg-falling-star"></div>
+                <div class="bg-falling-star"></div>
+            </div>
+            <div id="star_flare" class="star-flare"><img src="flare.png" style="vertical-align: middle;height: 100%;"></div>
+            <div id="main_planet" class="bg-planet-1 bg-planet"></div>
+            <div id="moon_planet" class="bg-planet-2 bg-planet"></div>
+            <div id="moon_planet_2" class="bg-planet-3 bg-planet" style="display:block;"></div>
+        </div>
+        <div style="position:absolute;bottom: 2rem !important;left: 2rem !important;">
+            <a id="settings_button" onclick="toggleSettings()" class="btn btn-s rounded-pill"
+                style="margin-right: 10px;background-color: rgba(0, 0, 0, 0.226); color: #adadad; font-family: 'Open Sans', sans-serif;"><i
+                    class="fa fa-gear"></i></a>
+            <a id="randomize_button" class="btn btn-s rounded-pill" onclick="randomizeIndex()"
+                style="display:none; margin-right: 10px;background-color: rgba(0, 0, 0, 0.226); color: #adadad; font-family: 'Open Sans', sans-serif;">change theme (currently earth)</a>
+            <a id="change_location" class="btn btn-s rounded-pill" onclick="changeLocation()"
+                style="display:none; background-color: rgba(0, 0, 0, 0.226); color: #adadad; font-family: 'Open Sans', sans-serif;">change position</a>
+        </div>
+    </header>
+    <!-- Core theme JS-->
+    <script src="scripts.js"></script>
+    <script>
+        randomizeIndexStartup();
+        $("#page_transition_div").fadeOut("slow");
+    </script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

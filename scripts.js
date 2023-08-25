@@ -1,105 +1,135 @@
+const planets = ["earth", "jupiter", "neptune", "mercury", "mars", "black-hole", "alien", "uranus", "exoplanet_1", "exoplanet_2", "moon"];
+const planetsCzech = ["Země", "Jupiter", "Neptun", "Merkur", "Mars", "Černá díra", "Mimozemšťané", "Uran", "Exoplaneta 1", "Exoplanet 2", "Moon"];
+const planetsEnglish = ["Earth", "Jupiter", "Neptune", "Mercury", "Mars", "Black Hole", "Aliens", "Uranus", "Exoplanet 1", "Exoplanet 2", "Moon"];
+const planetColors = ["rgba(0,54,181,1)", "rgba(184, 106, 70, 1)", "rgba(9, 127, 181, 1)", "rgba(130, 130, 130, 1)", "rgba(171, 54, 48, 1)", "rgba(83, 71, 173, 1)", "rgba(40, 168, 74, 1)", "rgba(62, 102, 171, 1)", "rgba(129, 69, 168, 1)", "rgba(181, 130, 40, 1)", "rgba(135, 135, 135, 1)"];
+const PlanetLocation = {
+    Centered: 'center',
+    RightBottom: 'right bottom'
+};
+
 var pendingIndexChange = false;
 var currentPlanetNumber = 0;
-var scrolledUp = true;
-const planets = ["earth", "jupiter", "neptune", "mercury", "mars", "black-hole", "alien"];
-const planetsCzech = ["Země", "Jupiter", "Neptun", "Merkur", "Mars", "Černá díra", "Mimozemšťané"];
-const planetColors = ["rgba(0,54,181,1)", "rgba(181, 116, 38, 1)", "rgba(9, 127, 181, 1)", "rgba(130, 130, 130, 1)", "rgba(171, 54, 48, 1)", "rgba(106, 43, 173, 1)", "rgba(47, 194, 86, 1)"];
+var randomNumber = 0;
+var settings = false;
+var currentPlanetLocation = PlanetLocation.Centered;
+var currentPlanetLocationRotating = false;
 
-function scrollHandle()
+function generateStarFlarePositionCenter()
 {
-    if (window.scrollY < 150)
+    const rangeSelector = Math.random() < 0.5; // true pro první rozsah, false pro druhý rozsah
+    if (rangeSelector) {
+      return Math.floor(Math.random() * 31); // Mezi 0 a 30
+    } else {
+      return Math.floor(Math.random() * 31) + 70; // Mezi 70 a 100
+    }
+}
+
+function generateStarFlarePositionCorner()
+{
+    return Math.floor(Math.random() * 100);
+}
+
+function setStarFlarePosition()
+{
+    if (currentPlanetLocation == PlanetLocation.Centered)
     {
-        scrolledUp = true;
-        $("#nav").stop().animate({backgroundColor: 'rgba(0,0,0,0)'}, 300);
+        var top = generateStarFlarePositionCenter() + "vh";
+        var right = generateStarFlarePositionCenter() + "vw";
     }
     else
     {
-        if (scrolledUp == false)
-        {
+        var top = generateStarFlarePositionCorner() + "vh";
+        var right = generateStarFlarePositionCorner() + "vw";
+    }
 
+    document.getElementById("star_flare").style.removeProperty("top");
+    document.getElementById("star_flare").style.removeProperty("right");
+    document.getElementById("star_flare").style.setProperty("top", top);
+    document.getElementById("star_flare").style.setProperty("right", right);
+}
+
+var starFlareInterval = setInterval(setStarFlarePosition, 8000);
+
+function setBackground(index)
+{
+    document.getElementById("moon_planet").style.display = "block";
+    document.getElementById("moon_planet_2").style.display = "block";
+    document.getElementById("moon_planet_2").style.backgroundImage = "url(astronaut.png)";
+    currentPlanetLocationRotating = true;
+
+    if (currentPlanetLocation == PlanetLocation.Centered)
+    {
+        document.getElementById("moon_planet_2").classList.remove("bg-planet-3-non-rotate");
+        document.getElementById("moon_planet_2").classList.add("bg-planet-3");
+    }
+    else
+    {
+        document.getElementById("moon_planet_2").classList.remove("bg-planet-3-non-rotate-right-bottom");
+        document.getElementById("moon_planet_2").classList.add("bg-planet-3-right-bottom");
+    }
+
+    // Show small moon
+    if (planets[index] != "mercury" && planets[index] != "moon" && planets[index] != "black-hole") document.getElementById("moon_planet").style.display = "block";
+    else document.getElementById("moon_planet").style.display = "none";
+
+    // Alien scenario
+    if (planets[index] == "alien") 
+    {
+        currentPlanetLocationRotating = false;
+        document.getElementById("moon_planet").style.display = "none";
+        document.getElementById("moon_planet_2").style.backgroundImage = "url(ufo.png)";
+        if (currentPlanetLocation == PlanetLocation.Centered)
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
         }
         else
         {
-            scrolledUp = false;
-            $("#nav").stop().animate({backgroundColor: 'rgba(0,0,0,0.7)'}, 500);
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
         }
     }
-}
 
-scrollHandle();
-
-function pageTransition(el)
-{
-    if (el.classList.contains("active"))
+    // Moon scenario
+    else if (planets[index] == "moon")
     {
-        return false;
-    }
-    else
-    {
-        $("#page_transition_div").fadeIn();
-        $("#page_transition_div").promise().done(function(){
-            window.location.replace(el.href);
-        });
-        try {
-            $("#header_text").fadeOut();
+        currentPlanetLocationRotating = false;
+        document.getElementById("moon_planet_2").style.backgroundImage = "url(rocket.png)";
+        if (currentPlanetLocation == PlanetLocation.Centered)
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
         }
-        catch {
-
-        }
-        finally {
-            return false;
+        else
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
         }
     }
-}
 
-function setModal(type)
-{
-    var childrenCount = 0;
-    Array.from(document.getElementById("carousel_inner_1").children).forEach((element) => 
+    // Earth scenario
+    else if (planets[index] == "earth")
     {
-        if (childrenCount++ == 0) element.classList.add("active");
-        else element.classList.remove("active");
-    });
+        currentPlanetLocationRotating = false;
+        document.getElementById("moon_planet_2").style.backgroundImage = "url(satellite.png)";
+        if (currentPlanetLocation == PlanetLocation.Centered)
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
+        }
+        else
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
+        }
+    }
 
-    childrenCount = 0;
-    Array.from(document.getElementById("carousel_indicators_1").children).forEach((element) => 
-    {
-        if (childrenCount++ == 0) element.classList.add("active");
-        else element.classList.remove("active");
-    });
+    // Other scenarios
+    else document.getElementById("moon_planet").style.backgroundImage = "url(moon.png)";
 
-    var pic_1 = document.getElementById("modal_pic_1");
-    var pic_2 = document.getElementById("modal_pic_2");
-    var pic_3 = document.getElementById("modal_pic_3");
-    var pic_4 = document.getElementById("modal_pic_4");
-    var short_pic_1 = document.getElementById("short_modal_pic_1");
-    var short_pic_2 = document.getElementById("short_modal_pic_2");
-    if (type == "covid")
-    {
-        pic_1.src = "assets/img/covid_showcase/1.jpg";
-        pic_2.src = "assets/img/covid_showcase/2.jpg";
-        pic_3.src = "assets/img/covid_showcase/3.jpg";
-        pic_4.src = "assets/img/covid_showcase/4.jpg";
-    }
-    else if (type == "rtsp")
-    {
-        pic_1.src = "assets/img/rtsp_showcase/1.jpg";
-        pic_2.src = "assets/img/rtsp_showcase/2.jpg";
-        pic_3.src = "assets/img/rtsp_showcase/3.jpg";
-        pic_4.src = "assets/img/rtsp_showcase/4.jpg";
-    }
-    else if (type == "game_engine")
-    {
-        short_pic_1.src = "assets/img/engine_showcase/1.jpg";
-        short_pic_2.src = "assets/img/engine_showcase/2.jpg";
-    }
-    else if (type == "games")
-    {
-        pic_1.src = "assets/img/game_showcase/1.jpg";
-        pic_2.src = "assets/img/game_showcase/2.jpg";
-        pic_3.src = "assets/img/game_showcase/3.jpg";
-        pic_4.src = "assets/img/game_showcase/4.jpg";
-    }
+    document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[index] + " 10%, rgba(0,0,0,1) 100%)";
+    document.getElementById("main_planet").style.backgroundImage = "url(" + planets[index] + ".png)";
+    document.getElementById("randomize_button").innerHTML = "change theme (currently " + planetsEnglish[index] + ")";
 }
 
 function randomizeIndex()
@@ -109,7 +139,7 @@ function randomizeIndex()
     // Initial stuff
     var fadeSpeed = 1000;
     var transitionLength = 1200;
-    var randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
+    randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
     while (randomNumber == currentPlanetNumber)
     {
         randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
@@ -120,6 +150,8 @@ function randomizeIndex()
         $("#background_elements").fadeIn(fadeSpeed);
         $("#page_transition_div").fadeOut(fadeSpeed);
         pendingIndexChange = false;
+        clearInterval(starFlareInterval);
+        starFlareInterval = setInterval(setStarFlarePosition, 8000);
     }, transitionLength);
 
     // Fade out everything
@@ -127,64 +159,83 @@ function randomizeIndex()
     $("#page_transition_div").fadeIn(fadeSpeed);
     $("#easteregg_text").fadeOut(fadeSpeed);
     setTimeout(function() {
-        document.getElementById("moon_planet_2").style.display = "block";
-        if (planets[randomNumber] != "mercury" && planets[randomNumber] != "black-hole") document.getElementById("moon_planet").style.display = "block";
-        else document.getElementById("moon_planet").style.display = "none";
-        if (planets[randomNumber] == "alien") {
-            document.getElementById("moon_planet_2").style.display = "none";
-            document.getElementById("moon_planet").style.backgroundImage = "url(ufo.png)";
-        }
-        else document.getElementById("moon_planet").style.backgroundImage = "url(moon.png)";
-        document.getElementById("page-top").style.background = "radial-gradient(at right bottom, " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
-        document.getElementById("main_planet").style.backgroundImage = "url(" + planets[randomNumber] + ".png)";
-        document.getElementById("randomize_button").innerHTML = "změnit pozadí (právě " + planetsCzech[randomNumber] + ")";
+        setBackground(randomNumber);
     }, fadeSpeed);
 }
 
 function randomizeIndexStartup()
 {
-    var randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
+    randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
     currentPlanetNumber = randomNumber;
-    document.getElementById("moon_planet_2").style.display = "block";
-    if (planets[randomNumber] != "mercury" && planets[randomNumber] != "black-hole") document.getElementById("moon_planet").style.display = "block";
-    else document.getElementById("moon_planet").style.display = "none";
-    if (planets[randomNumber] == "alien") {
-        document.getElementById("moon_planet_2").style.display = "none";
-        document.getElementById("moon_planet").style.backgroundImage = "url(ufo.png)";
-    }
-    else document.getElementById("moon_planet").style.backgroundImage = "url(moon.png)";
-    document.getElementById("page-top").style.background = "radial-gradient(at right bottom, " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
-    document.getElementById("main_planet").style.backgroundImage = "url(" + planets[randomNumber] + ".png)";
-    document.getElementById("randomize_button").innerHTML = "změnit pozadí (právě " + planetsCzech[randomNumber] + ")";
+    setBackground(randomNumber);
+    clearInterval(starFlareInterval);
+    starFlareInterval = setInterval(setStarFlarePosition, 8000);
 }
 
-function easterEgg()
+function changeLocation()
 {
     if (pendingIndexChange) return;
 
     // Initial stuff
     var fadeSpeed = 1000;
     var transitionLength = 1200;
-    currentPlanetNumber = 6;
     pendingIndexChange = true;
     setTimeout(function() {
         $("#background_elements").fadeIn(fadeSpeed);
-        $("#easteregg_text").fadeIn(fadeSpeed);
         $("#page_transition_div").fadeOut(fadeSpeed);
         pendingIndexChange = false;
+        clearInterval(starFlareInterval);
+        starFlareInterval = setInterval(setStarFlarePosition, 8000);
     }, transitionLength);
 
     // Fade out everything
     $("#background_elements").fadeOut(fadeSpeed);
     $("#page_transition_div").fadeIn(fadeSpeed);
-    $("#easteregg_text").fadeOut(fadeSpeed);
-    setTimeout(function() {
-        document.getElementById("moon_planet").style.display = "block";
-        document.getElementById("moon_planet_2").style.display = "block";
-        document.getElementById("moon_planet").style.backgroundImage = "url(assets/img/milk.png";
-        document.getElementById("moon_planet_2").style.backgroundImage = "url(assets/img/astronaut.png";
-        document.getElementById("page-top").style.background = "radial-gradient(at right bottom, rgba(125, 76, 39, 1) 10%, rgba(0,0,0,1) 100%)";
-        document.getElementById("main_planet").style.backgroundImage = "url(assets/img/cookie.png)";
-        document.getElementById("randomize_button").innerHTML = "změnit pozadí (právě secret)";
-    }, fadeSpeed);
+    if (currentPlanetLocation == PlanetLocation.Centered)
+    {
+        currentPlanetLocation = PlanetLocation.RightBottom;
+        setTimeout(function() {
+            document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
+            document.getElementById("main_planet").classList.remove("bg-planet-1");
+            document.getElementById("moon_planet").classList.remove("bg-planet-2");
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3");
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-non-rotate");
+            document.getElementById("main_planet").classList.add("bg-planet-1-right-bottom");
+            document.getElementById("moon_planet").classList.add("bg-planet-2-right-bottom");
+            if (!currentPlanetLocationRotating) document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
+            else document.getElementById("moon_planet_2").classList.add("bg-planet-3-right-bottom");
+        }, fadeSpeed);
+    }
+    else if (currentPlanetLocation == PlanetLocation.RightBottom)
+    {
+        currentPlanetLocation = PlanetLocation.Centered;
+        setTimeout(function() {
+            document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
+            document.getElementById("main_planet").classList.remove("bg-planet-1-right-bottom");
+            document.getElementById("moon_planet").classList.remove("bg-planet-2-right-bottom");
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-non-rotate-right-bottom");
+            document.getElementById("main_planet").classList.add("bg-planet-1");
+            document.getElementById("moon_planet").classList.add("bg-planet-2");
+            if (!currentPlanetLocationRotating) document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
+            else document.getElementById("moon_planet_2").classList.add("bg-planet-3");
+        }, fadeSpeed);
+    }
+
+}
+
+function toggleSettings()
+{
+    if (!settings)
+    {
+        $("#randomize_button").fadeIn("slow");
+        $("#change_location").fadeIn("slow");
+        settings = true;
+    }
+    else
+    {
+        $("#randomize_button").fadeOut("slow");
+        $("#change_location").fadeOut("slow");
+        settings = false;
+    }
 }
