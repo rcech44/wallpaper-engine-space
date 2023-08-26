@@ -6,6 +6,15 @@ const PlanetLocation = {
     Centered: 'center',
     RightBottom: 'right bottom'
 };
+const BrightnessOptions = {
+    0: {'value': 0, 'text': 'Animated Bright', 'animationName': 'background-opacity-animated-bright'},
+    1: {'value': 1, 'text': 'Bright', 'animationName': 'background-opacity-bright'},
+    2: {'value': 2, 'text': 'Animated Dark', 'animationName': 'background-opacity-animated-dark'},
+    3: {'value': 3, 'text': 'Dark', 'animationName': 'background-opacity-dark'},
+    4: {'value': 4, 'text': 'Black', 'animationName': 'background-opacity-black'},
+    5: {'value': 5, 'text': 'Shining', 'animationName': 'background-opacity-extra-dark'}
+};
+const BrightnessOptionsLength = 6;
 
 var pendingIndexChange = false;
 var currentPlanetNumber = 0;
@@ -13,6 +22,8 @@ var randomNumber = 0;
 var settings = false;
 var currentPlanetLocation = PlanetLocation.Centered;
 var currentPlanetLocationRotating = false;
+var currentBrightness = BrightnessOptions[0];
+var currentShininess = "100%";
 
 function generateStarFlarePositionCenter()
 {
@@ -129,7 +140,7 @@ function setBackground(index)
 
     document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[index] + " 10%, rgba(0,0,0,1) 100%)";
     document.getElementById("main_planet").style.backgroundImage = "url(" + planets[index] + ".png)";
-    document.getElementById("randomize_button").innerHTML = "change theme (currently " + planetsEnglish[index] + ")";
+    document.getElementById("randomize_button").innerHTML = "theme: " + planetsEnglish[index];
 }
 
 function randomizeIndex()
@@ -195,6 +206,7 @@ function changeLocation()
     {
         currentPlanetLocation = PlanetLocation.RightBottom;
         setTimeout(function() {
+            document.getElementById("change_location").innerHTML = "position: corner";
             document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
             document.getElementById("main_planet").classList.remove("bg-planet-1");
             document.getElementById("moon_planet").classList.remove("bg-planet-2");
@@ -210,6 +222,7 @@ function changeLocation()
     {
         currentPlanetLocation = PlanetLocation.Centered;
         setTimeout(function() {
+            document.getElementById("change_location").innerHTML = "position: center";
             document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
             document.getElementById("main_planet").classList.remove("bg-planet-1-right-bottom");
             document.getElementById("moon_planet").classList.remove("bg-planet-2-right-bottom");
@@ -230,12 +243,24 @@ function toggleSettings()
     {
         $("#randomize_button").fadeIn("slow");
         $("#change_location").fadeIn("slow");
+        $("#change_brightness").fadeIn("slow");
         settings = true;
     }
     else
     {
         $("#randomize_button").fadeOut("slow");
         $("#change_location").fadeOut("slow");
+        $("#change_brightness").fadeOut("slow");
         settings = false;
     }
+}
+
+function changeBrightness()
+{
+    if (currentBrightness.value == BrightnessOptionsLength - 1) currentBrightness = BrightnessOptions[0];
+    else currentBrightness = BrightnessOptions[currentBrightness.value + 1];
+
+    if (currentBrightness.text == "Shining") document.getElementById("main_planet").style.webkitFilter = "drop-shadow(0 0 130px " + planetColors[randomNumber] + ")";
+    document.getElementById("header").style.animation = currentBrightness.animationName + " 25s infinite normal";
+    document.getElementById("change_brightness").innerHTML = "brightness: " + currentBrightness.text;
 }
