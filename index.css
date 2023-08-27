@@ -74,21 +74,21 @@ header.masthead .masthead-content .masthead-subsubheading {
 
 @keyframes background-opacity-dark {
     0% {
-        background-color: #000000d8;
+        background-color: #000000be;
     }
 
     100% {
-        background-color: #000000d8;
+        background-color: #000000be;
     }
 }
 
 @keyframes background-opacity-extra-dark {
     0% {
-        background-color: #000000ee;
+        background-color: #000000e7;
     }
 
     100% {
-        background-color: #000000ee;
+        background-color: #000000e7;
     }
 }
 
@@ -101,6 +101,7 @@ header.masthead .masthead-content .masthead-subsubheading {
         background-color: #000000;
     }
 }
+
 
 @keyframes star-opacity-animation {
     0% {
@@ -721,7 +722,7 @@ header.masthead .bg-falling-star {
 header.masthead .bg-planet {
 
     position: absolute;
-    transition: 0.3s;
+    transition: 0.5s;
     opacity: 100%;
 }
 
@@ -734,6 +735,7 @@ header.masthead .bg-planet-1 {
     bottom: 0;
     margin: auto;
     background-image: url(earth.png);
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-size: cover;
     background-repeat: repeat-y;
     animation: planet-animation-1 60s linear infinite both;
@@ -746,6 +748,7 @@ header.masthead .bg-planet-1-right-bottom {
     max-height: 1500px;
     bottom: -17.5vh;
     right: -17.5vh;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(earth.png);
     background-size: cover;
     animation: planet-animation-1 30s linear infinite both;
@@ -759,6 +762,7 @@ header.masthead .bg-planet-2 {
     right: 0;
     bottom: 0;
     margin: auto;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(moon.png);
     background-size: cover;
     animation: planet-animation-2 40s linear infinite;
@@ -771,6 +775,7 @@ header.masthead .bg-planet-2-right-bottom {
     max-height: 1500px;
     bottom: -2.5vh;
     right: -2.5vh;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(moon.png);
     background-size: cover;
     animation: planet-animation-2-right-bottom 20s linear infinite;
@@ -784,7 +789,7 @@ header.masthead .bg-planet-3 {
     right: 0;
     bottom: 0;
     margin: auto;
-    /* filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.295)); */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(astronaut.png);
     background-size: cover;
     animation: planet-animation-3 120s linear infinite;
@@ -798,7 +803,7 @@ header.masthead .bg-planet-3-non-rotate {
     right: 0;
     bottom: 0;
     margin: auto;
-    /* filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.295)); */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(astronaut.png);
     background-size: cover;
     animation: planet-animation-3-non-rotate 60s linear infinite;
@@ -811,7 +816,7 @@ header.masthead .bg-planet-3-right-bottom {
     max-height: 1500px;
     bottom: -4vh;
     right: -2.5vh;
-    /* filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.295)); */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(astronaut.png);
     background-size: cover;
     animation: planet-animation-3-right-bottom 50s linear infinite;
@@ -825,7 +830,7 @@ header.masthead .bg-planet-3-non-rotate-right-bottom {
     max-height: 1500px;
     bottom: -4vh;
     right: -2.5vh;
-    /* filter: drop-shadow(20px 1px 10px rgba(0, 0, 0, 0.295)); */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.295));
     background-image: url(astronaut.png);
     background-size: cover;
     animation: planet-animation-3-non-rotate-right-bottom 40s linear infinite;

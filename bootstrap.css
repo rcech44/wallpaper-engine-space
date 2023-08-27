@@ -5243,11 +5243,11 @@ textarea.form-control-lg {
 
 .modal {
   --bs-modal-zindex: 1055;
-  --bs-modal-width: 50vw;
+  --bs-modal-width: fit-content;
   --bs-modal-padding: 1rem;
   --bs-modal-margin: 0.5rem;
   --bs-modal-color: ;
-  --bs-modal-bg: #fff;
+  --bs-modal-bg: rgba(0,0,0,0.85);
   --bs-modal-border-color: var(--bs-border-color-translucent);
   --bs-modal-border-width: 1px;
   --bs-modal-border-radius: 0.5rem;
@@ -5332,7 +5332,7 @@ textarea.form-control-lg {
 .modal-backdrop {
   --bs-backdrop-zindex: 1050;
   --bs-backdrop-bg: #000;
-  --bs-backdrop-opacity: 0.5;
+  --bs-backdrop-opacity: 0.3;
   position: fixed;
   top: 0;
   left: 0;
@@ -10889,7 +10889,7 @@ html {
     /* margin-top: 3vh; */
     font-size: 0.75vh;
     /* font-weight: 700; */
-    letter-spacing: 0.1rem;
+    letter-spacing: 1px;
   }
 
 .navbar-opacity-high {
@@ -10942,3 +10942,7 @@ body::-webkit-scrollbar {
     object-fit: contain;
     max-height: 60vh;
 }
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
