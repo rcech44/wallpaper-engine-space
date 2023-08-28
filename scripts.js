@@ -68,6 +68,7 @@ var starFlareInterval = setInterval(setStarFlarePosition, 8000);
 
 function setBackground(index)
 {
+    localStorage.setItem('wallpaperTheme', index);
     showMoon1 = true;
     showMoon2 = true;
     if (rotatingObjects) document.getElementById("moon_planet").style.display = "block";
@@ -158,21 +159,34 @@ function setBackground(index)
     document.getElementById("main_planet").style.backgroundImage = "url(" + planets[index] + ".png)";
     document.getElementById("randomize_button").innerHTML = "theme: " + planetsEnglish[index];
     if (currentBrightness.text == "Shining") document.getElementById("main_planet").style.webkitFilter = "drop-shadow(0 0 130px " + planetColors[randomNumber] + ")";
+    if (rotatingObjects == false)
+    {
+        document.getElementById("moon_planet").style.display = "none";
+        document.getElementById("moon_planet_2").style.display = "none";
+    }
 }
 
-function randomizeIndex()
+function randomizeIndex(planet)
 {
     if (pendingIndexChange) return;
 
     // Initial stuff
     var fadeSpeed = 1000;
     var transitionLength = 1200;
-    randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
-    while (randomNumber == currentPlanetNumber)
+    if (planet == null)
     {
         randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
+        while (randomNumber == currentPlanetNumber)
+        {
+            randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
+        }
+        currentPlanetNumber = randomNumber;
     }
-    currentPlanetNumber = randomNumber;
+    else 
+    {
+        currentPlanetNumber = planet;
+        randomNumber = planet;
+    }
     pendingIndexChange = true;
     setTimeout(function() {
         $("#background_elements").fadeIn(fadeSpeed);
@@ -193,35 +207,33 @@ function randomizeIndex()
 
 function randomizeIndexStartup()
 {
-    randomNumber = Math.floor(Math.random() * (planets.length - 0) + 0);
-    currentPlanetNumber = randomNumber;
     setBackground(randomNumber);
     clearInterval(starFlareInterval);
     starFlareInterval = setInterval(setStarFlarePosition, 8000);
 }
 
-function changeLocation()
+function setLocation(startup)
 {
     if (pendingIndexChange) return;
 
     // Initial stuff
-    var fadeSpeed = 1000;
+    if (startup == null) var fadeSpeed = 1000;
+    else var fadeSpeed = 0;
     var transitionLength = 1200;
-    pendingIndexChange = true;
-    setTimeout(function() {
-        $("#background_elements").fadeIn(fadeSpeed);
-        $("#page_transition_div").fadeOut(fadeSpeed);
-        pendingIndexChange = false;
-        clearInterval(starFlareInterval);
-        starFlareInterval = setInterval(setStarFlarePosition, 8000);
-    }, transitionLength);
+    if (startup == null)
+        setTimeout(function() {
+            $("#background_elements").fadeIn(fadeSpeed);
+            $("#page_transition_div").fadeOut(fadeSpeed);
+            pendingIndexChange = false;
+            clearInterval(starFlareInterval);
+            starFlareInterval = setInterval(setStarFlarePosition, 8000);
+        }, transitionLength);
 
     // Fade out everything
-    $("#background_elements").fadeOut(fadeSpeed);
-    $("#page_transition_div").fadeIn(fadeSpeed);
-    if (currentPlanetLocation == PlanetLocation.Centered)
+    if (startup == null) $("#background_elements").fadeOut(fadeSpeed);
+    if (startup == null) $("#page_transition_div").fadeIn(fadeSpeed);
+    if (currentPlanetLocation == PlanetLocation.RightBottom)
     {
-        currentPlanetLocation = PlanetLocation.RightBottom;
         setTimeout(function() {
             document.getElementById("change_location").innerHTML = "position: corner";
             document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
@@ -235,9 +247,8 @@ function changeLocation()
             else document.getElementById("moon_planet_2").classList.add("bg-planet-3-right-bottom");
         }, fadeSpeed);
     }
-    else if (currentPlanetLocation == PlanetLocation.RightBottom)
+    else if (currentPlanetLocation == PlanetLocation.Centered)
     {
-        currentPlanetLocation = PlanetLocation.Centered;
         setTimeout(function() {
             document.getElementById("change_location").innerHTML = "position: center";
             document.getElementById("page-top").style.background = "radial-gradient(at " + currentPlanetLocation  + ", " + planetColors[randomNumber] + " 10%, rgba(0,0,0,1) 100%)";
@@ -250,6 +261,22 @@ function changeLocation()
             if (!currentPlanetLocationRotating) document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
             else document.getElementById("moon_planet_2").classList.add("bg-planet-3");
         }, fadeSpeed);
+    }
+}
+
+function changeLocationSwitch()
+{
+    if (currentPlanetLocation == PlanetLocation.Centered)
+    {
+        currentPlanetLocation = PlanetLocation.RightBottom;
+        localStorage.setItem('wallpaperPosition', 'right bottom');
+        setLocation();
+    }
+    else if (currentPlanetLocation == PlanetLocation.RightBottom)
+    {
+        currentPlanetLocation = PlanetLocation.Centered;
+        localStorage.setItem('wallpaperPosition', 'centered');
+        setLocation();
     }
 }
 
@@ -277,10 +304,8 @@ function toggleSettings()
     }
 }
 
-function changeBrightness()
+function setBrightness()
 {
-    if (currentBrightness.value == BrightnessOptionsLength - 1) currentBrightness = BrightnessOptions[0];
-    else currentBrightness = BrightnessOptions[currentBrightness.value + 1];
     if (currentBrightness.text == "Shining")
     {
         document.getElementById("main_planet").style.removeProperty("filter");
@@ -293,38 +318,109 @@ function changeBrightness()
     }
     document.getElementById("header").style.animation = currentBrightness.animationName + " 25s infinite normal";
     document.getElementById("change_brightness").innerHTML = "brightness: " + currentBrightness.text;
+    localStorage.setItem('wallpaperBrightness', currentBrightness.value);
 }
 
-function changeFallingStars()
+function changeBrightnessSwitch()
 {
-    if (fallingStars)
-    {
-        document.getElementById("background_falling_stars").style.display = "none";
-        document.getElementById("change_falling_stars").innerHTML = "falling stars: off";
-        fallingStars = false;
-    }
-    else
+    if (currentBrightness.value == BrightnessOptionsLength - 1) currentBrightness = BrightnessOptions[0];
+    else currentBrightness = BrightnessOptions[currentBrightness.value + 1];
+    setBrightness()
+}
+
+function setFallingStars()
+{
+    if (fallingStars == true)
     {
         document.getElementById("background_falling_stars").style.display = "block";
         document.getElementById("change_falling_stars").innerHTML = "falling stars: on";
-        fallingStars = true;
+    }
+    else
+    {
+        document.getElementById("background_falling_stars").style.display = "none";
+        document.getElementById("change_falling_stars").innerHTML = "falling stars: off";
     }
 }
 
-function changeRotatingObjects()
+function changeFallingStarsSwitch()
 {
-    if (rotatingObjects)
+    if (fallingStars == true)
     {
-        document.getElementById("moon_planet").style.display = "none";
-        document.getElementById("moon_planet_2").style.display = "none";
-        document.getElementById("change_rotating_objects").innerHTML = "rotating objects: off";
-        rotatingObjects = false;
+        fallingStars = false;
+        setFallingStars();
+        localStorage.setItem('wallpaperFallingStars', false);
     }
     else
+    {
+        fallingStars = true;
+        setFallingStars();
+        localStorage.setItem('wallpaperFallingStars', true);
+    }
+}
+
+function setRotatingObjects()
+{
+    if (rotatingObjects == true)
     {
         if (showMoon1) document.getElementById("moon_planet").style.display = "block";
         if (showMoon2) document.getElementById("moon_planet_2").style.display = "block";
         document.getElementById("change_rotating_objects").innerHTML = "rotating objects: on";
-        rotatingObjects = true;
     }
+    else
+    {
+        document.getElementById("moon_planet").style.display = "none";
+        document.getElementById("moon_planet_2").style.display = "none";
+        document.getElementById("change_rotating_objects").innerHTML = "rotating objects: off";
+    }
+}
+
+function changeRotatingObjectsSwitch()
+{
+    if (rotatingObjects == true)
+    {
+        rotatingObjects = false;
+        localStorage.setItem('wallpaperRotatingObjects', false);
+        setRotatingObjects();
+    }
+    else
+    {
+        rotatingObjects = true;
+        localStorage.setItem('wallpaperRotatingObjects', true);
+        setRotatingObjects();
+    }
+}
+
+function loadStartup()
+{
+    if ("wallpaperInitialized" in localStorage) 
+    {
+        currentPlanetNumber = localStorage.getItem('wallpaperTheme');
+        randomNumber = localStorage.getItem('wallpaperTheme');
+        fallingStars = (localStorage.getItem('wallpaperFallingStars') === 'true');
+        rotatingObjects = (localStorage.getItem('wallpaperRotatingObjects') === 'true');
+        if (localStorage.getItem('wallpaperPosition') == 'centered') currentPlanetLocation = PlanetLocation.Centered;
+        else currentPlanetLocation = PlanetLocation.RightBottom;
+        currentBrightness = BrightnessOptions[localStorage.getItem('wallpaperBrightness')];
+    } 
+    else 
+    {
+        localStorage.setItem('wallpaperInitialized', true);
+        localStorage.setItem('wallpaperTheme', 0);
+        localStorage.setItem('wallpaperPosition', 'centered');
+        localStorage.setItem('wallpaperBrightness', 0);
+        localStorage.setItem('wallpaperFallingStars', true);
+        localStorage.setItem('wallpaperRotatingObjects', true);
+
+        currentPlanetNumber = 0;
+        randomNumber = 0;
+        fallingStars = true;
+        rotatingObjects = true;
+        currentPlanetLocation = PlanetLocation.Centered;
+        currentBrightness = BrightnessOptions[0];
+    }
+    setLocation(true);
+    setBrightness();
+    setRotatingObjects();
+    setFallingStars();
+    randomizeIndexStartup();
 }
