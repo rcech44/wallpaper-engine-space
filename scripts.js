@@ -1,7 +1,7 @@
-const planets = ["earth", "jupiter", "neptune", "mercury", "mars", "black-hole", "alien", "uranus", "exoplanet_1", "exoplanet_2", "moon"];
-const planetsCzech = ["Země", "Jupiter", "Neptun", "Merkur", "Mars", "Černá díra", "Mimozemšťané", "Uran", "Exoplaneta 1", "Exoplanet 2", "Moon"];
-const planetsEnglish = ["Earth", "Jupiter", "Neptune", "Mercury", "Mars", "Black Hole", "Aliens", "Uranus", "Exoplanet 1", "Exoplanet 2", "Moon"];
-const planetColors = ["rgba(0,54,181,1)", "rgba(184, 106, 70, 1)", "rgba(9, 127, 181, 1)", "rgba(130, 130, 130, 1)", "rgba(171, 54, 48, 1)", "rgba(83, 71, 173, 1)", "rgba(40, 168, 74, 1)", "rgba(62, 102, 171, 1)", "rgba(129, 69, 168, 1)", "rgba(181, 130, 40, 1)", "rgba(135, 135, 135, 1)"];
+const planets = ["earth", "jupiter", "neptune", "mercury", "mars", "black-hole", "alien", "uranus", "exoplanet_1", "exoplanet_2", "moon", "sun", "venus", "saturn", "cookie"];
+const planetsCzech = ["Země", "Jupiter", "Neptun", "Merkur", "Mars", "Černá díra", "Mimozemšťané", "Uran", "Exoplaneta 1", "Exoplanet 2", "Moon", "Slunce", "Venuše", "Saturn", "Cookie"];
+const planetsEnglish = ["Earth", "Jupiter", "Neptune", "Mercury", "Mars", "Black Hole", "Aliens", "Uranus", "Exoplanet 1", "Exoplanet 2", "Moon", "Solar system", "Venus", "Saturn", "Cookie"];
+const planetColors = ["rgba(0,54,181,1)", "rgba(184, 106, 70, 1)", "rgba(9, 127, 181, 1)", "rgba(84, 104, 133, 1)", "rgba(181, 92, 60, 1)", "rgba(83, 71, 173, 1)", "rgba(40, 168, 74, 1)", "rgba(62, 102, 171, 1)", "rgba(129, 69, 168, 1)", "rgba(194, 146, 114, 1)", "rgba(135, 135, 135, 1)", "rgba(153, 112, 49, 1)", "rgba(153, 41, 34, 1)", "rgba(166, 141, 88, 1)", "rgba(125, 75, 44, 1)"];
 const PlanetLocation = {
     Centered: 'center',
     RightBottom: 'right bottom'
@@ -17,6 +17,7 @@ const BrightnessOptions = {
 };
 const BrightnessOptionsLength = 6;
 
+var firstLaunch = false;
 var pendingIndexChange = false;
 var currentPlanetNumber = 0;
 var randomNumber = 0;
@@ -69,6 +70,15 @@ var starFlareInterval = setInterval(setStarFlarePosition, 8000);
 function setBackground(index)
 {
     localStorage.setItem('wallpaperTheme', index);
+    document.getElementById("hidden_text").style.display = "none";
+    document.getElementById("solar_system_planet_1").style.display = "none";
+    document.getElementById("solar_system_planet_2").style.display = "none";
+    document.getElementById("solar_system_planet_3").style.display = "none";
+    document.getElementById("solar_system_planet_4").style.display = "none";
+    document.getElementById("solar_system_planet_5").style.display = "none";
+    document.getElementById("solar_system_planet_6").style.display = "none";
+    document.getElementById("solar_system_planet_7").style.display = "none";
+    document.getElementById("solar_system_planet_8").style.display = "none";
     showMoon1 = true;
     showMoon2 = true;
     if (rotatingObjects) document.getElementById("moon_planet").style.display = "block";
@@ -88,7 +98,7 @@ function setBackground(index)
     }
 
     // Show small moon
-    if (planets[index] != "mercury" && planets[index] != "moon" && planets[index] != "black-hole")
+    if (planets[index] != "mercury" && planets[index] != "moon" && planets[index] != "black-hole" && planets[index] != "venus")
     {
         showMoon1 = true;
         if (rotatingObjects) document.getElementById("moon_planet").style.display = "block";
@@ -116,6 +126,26 @@ function setBackground(index)
             document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
             document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
         }
+    }
+
+    // Cookie (oreo) scenario
+    if (planets[index] == "cookie") 
+    {
+        currentPlanetLocationRotating = false;
+        document.getElementById("moon_planet").style.display = "none";
+        showMoon1 = false;
+        document.getElementById("moon_planet_2").style.backgroundImage = "url(milk.png)";
+        if (currentPlanetLocation == PlanetLocation.Centered)
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
+        }
+        else
+        {
+            document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
+            document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
+        }
+        document.getElementById("hidden_text").style.display = "block";
     }
 
     // Moon scenario
@@ -150,6 +180,23 @@ function setBackground(index)
             document.getElementById("moon_planet_2").classList.remove("bg-planet-3-right-bottom");
             document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
         }
+    }
+
+    // Solar system scenario
+    else if (planets[index] == "sun")
+    {
+        showMoon1 = false;
+        showMoon2 = false;
+        document.getElementById("solar_system_planet_1").style.display = "block";
+        document.getElementById("solar_system_planet_2").style.display = "block";
+        document.getElementById("solar_system_planet_3").style.display = "block";
+        document.getElementById("solar_system_planet_4").style.display = "block";
+        document.getElementById("solar_system_planet_5").style.display = "block";
+        document.getElementById("solar_system_planet_6").style.display = "block";
+        document.getElementById("solar_system_planet_7").style.display = "block";
+        document.getElementById("solar_system_planet_8").style.display = "block";
+        document.getElementById("moon_planet").style.display = "none";
+        document.getElementById("moon_planet_2").style.display = "none";
     }
 
     // Other scenarios
@@ -243,6 +290,25 @@ function setLocation(startup)
             document.getElementById("moon_planet_2").classList.remove("bg-planet-3-non-rotate");
             document.getElementById("main_planet").classList.add("bg-planet-1-right-bottom");
             document.getElementById("moon_planet").classList.add("bg-planet-2-right-bottom");
+
+            // Solar system scenario
+            document.getElementById("solar_system_planet_1").classList.remove("solar-system-planet-1");
+            document.getElementById("solar_system_planet_2").classList.remove("solar-system-planet-2");
+            document.getElementById("solar_system_planet_3").classList.remove("solar-system-planet-3");
+            document.getElementById("solar_system_planet_4").classList.remove("solar-system-planet-4");
+            document.getElementById("solar_system_planet_5").classList.remove("solar-system-planet-5");
+            document.getElementById("solar_system_planet_6").classList.remove("solar-system-planet-6");
+            document.getElementById("solar_system_planet_7").classList.remove("solar-system-planet-7");
+            document.getElementById("solar_system_planet_8").classList.remove("solar-system-planet-8");
+            document.getElementById("solar_system_planet_1").classList.add("solar-system-planet-1-right-bottom");
+            document.getElementById("solar_system_planet_2").classList.add("solar-system-planet-2-right-bottom");
+            document.getElementById("solar_system_planet_3").classList.add("solar-system-planet-3-right-bottom");
+            document.getElementById("solar_system_planet_4").classList.add("solar-system-planet-4-right-bottom");
+            document.getElementById("solar_system_planet_5").classList.add("solar-system-planet-5-right-bottom");
+            document.getElementById("solar_system_planet_6").classList.add("solar-system-planet-6-right-bottom");
+            document.getElementById("solar_system_planet_7").classList.add("solar-system-planet-7-right-bottom");
+            document.getElementById("solar_system_planet_8").classList.add("solar-system-planet-8-right-bottom");
+
             if (!currentPlanetLocationRotating) document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate-right-bottom");
             else document.getElementById("moon_planet_2").classList.add("bg-planet-3-right-bottom");
         }, fadeSpeed);
@@ -258,6 +324,25 @@ function setLocation(startup)
             document.getElementById("moon_planet_2").classList.remove("bg-planet-3-non-rotate-right-bottom");
             document.getElementById("main_planet").classList.add("bg-planet-1");
             document.getElementById("moon_planet").classList.add("bg-planet-2");
+
+            // Solar system scenario
+            document.getElementById("solar_system_planet_1").classList.remove("solar-system-planet-1-right-bottom");
+            document.getElementById("solar_system_planet_2").classList.remove("solar-system-planet-2-right-bottom");
+            document.getElementById("solar_system_planet_3").classList.remove("solar-system-planet-3-right-bottom");
+            document.getElementById("solar_system_planet_4").classList.remove("solar-system-planet-4-right-bottom");
+            document.getElementById("solar_system_planet_5").classList.remove("solar-system-planet-5-right-bottom");
+            document.getElementById("solar_system_planet_6").classList.remove("solar-system-planet-6-right-bottom");
+            document.getElementById("solar_system_planet_7").classList.remove("solar-system-planet-7-right-bottom");
+            document.getElementById("solar_system_planet_8").classList.remove("solar-system-planet-8-right-bottom");
+            document.getElementById("solar_system_planet_1").classList.add("solar-system-planet-1");
+            document.getElementById("solar_system_planet_2").classList.add("solar-system-planet-2");
+            document.getElementById("solar_system_planet_3").classList.add("solar-system-planet-3");
+            document.getElementById("solar_system_planet_4").classList.add("solar-system-planet-4");
+            document.getElementById("solar_system_planet_5").classList.add("solar-system-planet-5");
+            document.getElementById("solar_system_planet_6").classList.add("solar-system-planet-6");
+            document.getElementById("solar_system_planet_7").classList.add("solar-system-planet-7");
+            document.getElementById("solar_system_planet_8").classList.add("solar-system-planet-8");
+
             if (!currentPlanetLocationRotating) document.getElementById("moon_planet_2").classList.add("bg-planet-3-non-rotate");
             else document.getElementById("moon_planet_2").classList.add("bg-planet-3");
         }, fadeSpeed);
@@ -306,15 +391,38 @@ function toggleSettings()
 
 function setBrightness()
 {
+    document.getElementById("main_planet").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_1").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_2").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_3").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_4").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_5").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_6").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_7").style.removeProperty("filter");
+    document.getElementById("solar_system_planet_8").style.removeProperty("filter");
     if (currentBrightness.text == "Shining")
     {
-        document.getElementById("main_planet").style.removeProperty("filter");
         document.getElementById("main_planet").style.setProperty("filter", "drop-shadow(0 0 130px " + planetColors[randomNumber] + ")");
+        document.getElementById("solar_system_planet_1").style.setProperty("filter", "drop-shadow(0 0 10px rgba(130, 130, 130, 1))");
+        document.getElementById("solar_system_planet_2").style.setProperty("filter", "drop-shadow(0 0 10px rgba(255, 220, 110, 1))");
+        document.getElementById("solar_system_planet_3").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0,54,181,1))");
+        document.getElementById("solar_system_planet_4").style.setProperty("filter", "drop-shadow(0 0 10px rgba(171, 54, 48, 1))");
+        document.getElementById("solar_system_planet_5").style.setProperty("filter", "drop-shadow(0 0 10px rgba(184, 106, 70, 1))");
+        document.getElementById("solar_system_planet_6").style.setProperty("filter", "drop-shadow(0 0 10px rgba(184, 106, 70, 1))");
+        document.getElementById("solar_system_planet_7").style.setProperty("filter", "drop-shadow(0 0 10px rgba(62, 102, 171, 1))");
+        document.getElementById("solar_system_planet_8").style.setProperty("filter", "drop-shadow(0 0 10px rgba(9, 127, 181, 1))");
     }
     else 
     {
-        document.getElementById("main_planet").style.removeProperty("filter");
         document.getElementById("main_planet").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_1").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_2").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_3").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_4").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_5").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_6").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_7").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
+        document.getElementById("solar_system_planet_8").style.setProperty("filter", "drop-shadow(0 0 10px rgba(0, 0, 0, 0.295))");
     }
     document.getElementById("header").style.animation = currentBrightness.animationName + " 25s infinite normal";
     document.getElementById("change_brightness").innerHTML = "brightness: " + currentBrightness.text;
@@ -411,8 +519,9 @@ function loadStartup()
         localStorage.setItem('wallpaperFallingStars', true);
         localStorage.setItem('wallpaperRotatingObjects', true);
 
-        currentPlanetNumber = 0;
-        randomNumber = 0;
+        firstLaunch = true;
+        currentPlanetNumber = 11;
+        randomNumber = 11;
         fallingStars = true;
         rotatingObjects = true;
         currentPlanetLocation = PlanetLocation.Centered;
@@ -423,4 +532,12 @@ function loadStartup()
     setRotatingObjects();
     setFallingStars();
     randomizeIndexStartup();
+}
+
+function showToast()
+{
+    if (firstLaunch == true)
+    {
+        $("#test").toast("show");
+    }
 }
